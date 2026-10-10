@@ -12,10 +12,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm install
-      - run: npx prisma generate
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install
+      - name: Generate Prisma Client
+        run: npx prisma generate
+      - name: Build application
+        run: npm run build
         env:
           DATABASE_URL: postgresql://build:build@localhost:5432/godsotv
           AUTH_SECRET: build-only-secret-value-not-for-production
