@@ -7,6 +7,8 @@ const allowedAdmins = (process.env.GODSOTV_ADMIN_EMAILS ?? "")
   .split(",").map((email) => email.trim().toLowerCase()).filter(Boolean);
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Render runs behind a reverse proxy and forwards the public host headers.
+  trustHost: true,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "database" },
   providers: [GitHub],
